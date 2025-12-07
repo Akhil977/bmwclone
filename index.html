@@ -1,130 +1,377 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
-   
-    <title>BMW_CLONE</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMW Clone | The 5</title>
     <link rel="shortcut icon" href="icons/bmwlogo.svg" type="image/x-icon">
-    <link rel="stylesheet" href="vedios/body.css">
+    
+    <style>
+        /* --- RESET & BASIC STYLES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            overflow-x: hidden; /* Prevent horizontal scroll on mobile */
+        }
+
+        /* Make all images and videos responsive by default */
+        img, video {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* --- HERO SECTION --- */
+        .home_videos {
+            position: relative;
+            width: 100%;
+            height: 100vh; /* Full screen height */
+            background-color: #000;
+            overflow: hidden;
+        }
+
+        .vi {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures video fills screen without stretching */
+            opacity: 0.8;
+        }
+
+        /* --- HEADER --- */
+        .header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+            color: white;
+        }
+
+        .header_leftside, .header_rightside {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            width: 50px;
+        }
+
+        .header_text {
+            font-weight: bold;
+            font-size: 0.9rem;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        .header_rightside img {
+            width: 24px;
+            filter: invert(1); /* Makes black icons white if they are SVGs */
+            cursor: pointer;
+        }
+
+        /* --- HERO TEXT OVERLAY --- */
+        .video_text {
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            transform: translateY(-50%);
+            color: white;
+            z-index: 5;
+        }
+
+        .thetext { font-size: 1.5rem; margin-bottom: 0; }
+        .fivenum { font-size: 8rem; font-weight: bold; line-height: 1; margin: 10px 0; }
+        .longwheel { font-size: 1.5rem; letter-spacing: 2px; margin-bottom: 20px; }
+        .introductory { font-size: 1.1rem; margin-bottom: 30px; }
+        
+        .discover_button {
+            padding: 15px 40px;
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .discover_button:hover {
+            background: white;
+            color: black;
+        }
+
+        /* --- SECOND ROW (Icons) --- */
+        .second_row {
+            padding: 50px 20px;
+            background: white;
+        }
+
+        .find_your {
+            font-size: 2rem;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .iconrow {
+            display: flex; /* Flexbox for layout */
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+        }
+
+        .iconbox {
+            flex: 1; /* Each box takes equal width */
+            min-width: 250px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 20px;
+        }
+
+        .iconbox .icons {
+            width: 50px;
+            height: 50px;
+        }
+
+        .para p {
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .para button {
+            background: none;
+            border: none;
+            border-bottom: 2px solid black;
+            padding-bottom: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        /* --- IMAGE GRID --- */
+        .third_row, .img4_overall, .img2, .img3 {
+            margin-top: 20px;
+            width: 100%;
+        }
+        
+        /* Flex container for the text overlay image */
+        .img4_overall {
+            position: relative;
+            color: white;
+        }
+        
+        .img4_text {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.5); /* Readable text on image */
+            padding: 20px;
+        }
+
+        .knowmore {
+            margin-top: 10px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* --- FOOTER --- */
+        .footer {
+            background: #f0f0f0;
+            padding: 50px 20px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+            border-top: 1px solid #ccc;
+        }
+
+        .footer > div {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .footer p:first-child {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            font-weight: normal;
+        }
+
+        .footer b p {
+            font-weight: 300;
+            margin-bottom: 10px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .footer b p:hover {
+            text-decoration: underline;
+        }
+
+        /* --- MOBILE SPECIFIC STYLES (Media Queries) --- */
+        @media screen and (max-width: 768px) {
+            
+            /* Header adjustments */
+            .header_text {
+                display: none; /* Hide text menu on mobile to avoid clutter */
+            }
+            
+            /* Hero adjustments */
+            .video_text {
+                left: 5%;
+                width: 90%;
+            }
+            .fivenum {
+                font-size: 5rem;
+            }
+            .longwheel {
+                font-size: 1rem;
+            }
+
+            /* Icon Row adjustments */
+            .iconrow {
+                flex-direction: column; /* Stack icons vertically */
+            }
+            .iconbox {
+                flex-direction: row; /* Icon left, text right */
+                align-items: center;
+            }
+
+            /* Footer adjustments */
+            .footer {
+                flex-direction: column;
+            }
+            .footer > div {
+                border-bottom: 1px solid #ddd;
+                padding-bottom: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="home_vedios">
-    <video class="vi" autoplay loop muted>
-        <source src="vedios/headvedio.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-    
-    <div class=" header">
-        <div class="header_leftside">
-        <img class="logo" src="icons/bmwlogo.svg" >
-    <div class="header_text">MODELS</div>
-    <div class="header_text">Electric</div>
-    <div class="header_text">Configuration</div>
-    <div class="header_text">Visit Online Shop</div>
-    <div class="header_text">MORE BMW</div>
-</div>
-<div class="header_rightside">
-    <img  src="icons/finalprofile.svg">
-    <img  src="icons/shopping-cart-svgrepo-com.svg" >
-    <img  src="icons/location-pin-svgrepo-com.svg" >
-    <img  src="icons/search-svgrepo-com.svg" >
-    
-</div>
-</div>
 
+    <div class="home_videos">
+        <video class="vi" autoplay loop muted playsinline>
+            <source src="vedios/headvedio.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        
+        <div class="header">
+            <div class="header_leftside">
+                <img class="logo" src="icons/bmwlogo.svg" alt="BMW Logo">
+                <div class="header_text">MODELS</div>
+                <div class="header_text">Electric</div>
+                <div class="header_text">Configuration</div>
+                <div class="header_text">Visit Online Shop</div>
+                <div class="header_text">MORE BMW</div>
+            </div>
+            <div class="header_rightside">
+                <img src="icons/finalprofile.svg" alt="Profile">
+                <img src="icons/shopping-cart-svgrepo-com.svg" alt="Cart">
+                <img src="icons/location-pin-svgrepo-com.svg" alt="Location">
+                <img src="icons/search-svgrepo-com.svg" alt="Search">
+            </div>
+        </div>
 
-<div class="vedio_text" >
-   <p class="thetext">THE</p> 
-   <p class="fivenum">5</p>
-   <p class="longwheel">LONG WHEELBASE</p>
-   
-   <P class="INTRODUCTORY">INTRODUCTORY PRICE OF <strong>&#8377;72,90,000</strong> </p>
-    <BUtton class="dicover_button">Discover now</BUtton>
-
-
-</div>
-</div>
-<div class="second_row">
-    <p class="FIND_YOUR">FIND YOUR BMW</p>
-
-<div class="iconrow">
-    <div class="ICONBOX">
-        <img class="icons" src="icons/car-roof-box-svgrepo-com.svg">
-    
-    <div class="para"><p>FIND A NEW CAR</p>
-        <BUtton>SEARCH NOW</BUtton>
-    </div>
-    </div>
-
-
-
-
-    <div class="ICONBOX">
-        <img class="icons" src="icons/testdrive.svg">
-    
-    <div class="para"><p>book a test Drive</p>
-        <BUtton>Request a Test Drive</BUtton>
-    </div>
-</div>
-    <div class="ICONBOX">
-        <img class="icons" src="icons/buildcar.svg">
-    
-    <div class="para"><p>Build your own</p>
-        <BUtton>CONFIGURE &Price</BUtton>
-    </div>
-</div>
-
-
-</div>
-<div class="third_row">
-    <img  class="img1" src="images/img1.png" >
-</div>
-<img  class="img3" src="images/img3.png" >
-
-    <img  class="img2" src="images/img2.png" >
-    <div class=" img4_overall">
-        <img  class="img4" src="images/img4.png" >
-        <div class="img4_text">
-            <p>BMW Special Offers.</p>
-            <p class="img4text">Monthly EMI starting from Rs.49999*/Month.<br> Check Out similar BMW finance<br>
-
-                offers available across the BMW range.</p>
-                <p class="knowmore">
-                    know more &gt;
-
-                </p>
+        <div class="video_text">
+            <p class="thetext">THE</p> 
+            <p class="fivenum">5</p>
+            <p class="longwheel">LONG WHEELBASE</p>
+            <p class="introductory">INTRODUCTORY PRICE OF <strong>&#8377;72,90,000</strong> </p>
+            <button class="discover_button">Discover now</button>
         </div>
     </div>
-    <div class="bottomborder">
-        <p class="bottomborder_text1">FIND YOUR BMW</p>
-        <p>
-           <b class="allmodels"> ALL models</b>
-        </p>
+
+    <div class="second_row">
+        <p class="find_your">FIND YOUR BMW</p>
+
+        <div class="iconrow">
+            <div class="iconbox">
+                <img class="icons" src="icons/car-roof-box-svgrepo-com.svg" alt="New Car">
+                <div class="para">
+                    <p>FIND A NEW CAR</p>
+                    <button>SEARCH NOW</button>
+                </div>
+            </div>
+
+            <div class="iconbox">
+                <img class="icons" src="icons/testdrive.svg" alt="Test Drive">
+                <div class="para">
+                    <p>Book a Test Drive</p>
+                    <button>Request a Test Drive</button>
+                </div>
+            </div>
+
+            <div class="iconbox">
+                <img class="icons" src="icons/buildcar.svg" alt="Build Car">
+                <div class="para">
+                    <p>Build your own</p>
+                    <button>CONFIGURE & Price</button>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <div class="third_row">
+        <img class="img1" src="images/img1.png" alt="Car Image 1">
+        <img class="img3" src="images/img3.png" alt="Car Image 3">
+        <img class="img2" src="images/img2.png" alt="Car Image 2">
+        
+        <div class="img4_overall">
+            <img class="img4" src="images/img4.png" alt="Special Offers">
+            <div class="img4_text">
+                <p>BMW Special Offers.</p>
+                <p class="img4text">Monthly EMI starting from Rs.49,999*/Month.<br> 
+                Check Out similar BMW finance offers available across the BMW range.</p>
+                <p class="knowmore">Know more &gt;</p>
+            </div>
+        </div>
+    </div>
+
     <div class="footer">
-        <div class="contacts1"><p>Contact</p>
-
-          <b> <p> your BMW</p> 
-           <p> BMW Financial Services</p>
-            <p>BMW Safety</p>
-           <p>EMI Calculator</p> </b></div>
+        <div class="contacts1">
+            <p>Contact</p>
+            <b>
+                <p>Find a Dealer</p> 
+                <p>BMW Financial Services</p>
+                <p>BMW Safety</p>
+                <p>EMI Calculator</p> 
+            </b>
+        </div>
           
-           <div class="contacts2"><p>BMW Group</p>
-
-            <b> <p>BMW Excellence Club</p> 
-            <p> BMW Motorrad</p>
-             <p>Charging Network</p>
-            <p> Contact Us</p></b></div>
-            <div class="contacts3"><p>Legal</p>
-
-               <b> <p>Find a Dealer</p> 
-                <p> Request a Test Drive</p>
-                 <p>Careers</p>
-                <p> Contact Us</p></div></b>
+        <div class="contacts2">
+            <p>BMW Group</p>
+            <b> 
+                <p>BMW Excellence Club</p> 
+                <p>BMW Motorrad</p>
+                <p>Charging Network</p>
+                <p>Contact Us</p>
+            </b>
+        </div>
+        
+        <div class="contacts3">
+            <p>Legal</p>
+            <b> 
+                <p>Legal Disclaimer</p> 
+                <p>Privacy Policy</p>
+                <p>Careers</p>
+                <p>Cookie Policy</p>
+            </b>
+        </div>
     </div>
-
-
-
 
 </body>
 </html>
